@@ -1,0 +1,44 @@
+body{
+    text-align: center;
+    direction: ltr;
+}
+
+.menu {
+  position: relative;
+  display:flex;
+  float: left;
+  align-items: left;
+  justify-content: space-between;
+  left:5%;
+  margin: 0.1%;
+}
+  
+.search{
+  position: relative;
+  display:flex;
+  float: right;
+  align-items: right;
+  justify-content: space-between;
+  right:5%;
+  margin: 0.1%;
+}
+
+.card{
+    /* -webkit-box-shadow: inset -1px 3px 8px 5px #1F87FF, 2px 5px 16px 0px #0B325E, 5px 5px 15px 5px rgba(0,0,0,0); 
+    box-shadow: inset -1px 3px 8px 5px #1F87FF, 2px 5px 16px 0px #0B325E, 5px 5px 15px 5px rgba(0,0,0,0);
+    background: white; */
+    position: relative;
+    float: left;
+    /* padding-top: 40px;
+    padding-left: 20px;
+    padding-right: 100px;
+    height: 25%;
+    width: 20%;*/
+    /* margin-left: 5%;  */
+    flex:content-box;
+    justify-content: space-between;
+    margin: 0.1%;
+    }
+
+    
+
