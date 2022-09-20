@@ -1,6 +1,81 @@
-body{
+/*body{
     text-align: center;
     direction: ltr;
+}
+
+.menu {
+  position: relative;
+  display:flex;
+  float: left;
+  align-items: left;
+  justify-content: space-between;
+  left:5%;
+  margin: 0.1%;
+}
+  
+.search{
+  position: relative;
+  display:flex;
+  float: right;
+  align-items: right;
+  justify-content: space-between;
+  right:5%;
+  margin: 0.1%;
+}
+
+.card{
+    /* -webkit-box-shadow: inset -1px 3px 8px 5px #1F87FF, 2px 5px 16px 0px #0B325E, 5px 5px 15px 5px rgba(0,0,0,0); 
+    box-shadow: inset -1px 3px 8px 5px #1F87FF, 2px 5px 16px 0px #0B325E, 5px 5px 15px 5px rgba(0,0,0,0);
+    background: white; */
+    /*position: relative;
+    float: left;
+    /* padding-top: 40px;
+    padding-left: 20px;
+    padding-right: 100px;
+    height: 25%;
+    width: 20%;*/
+    /* margin-left: 5%;  */
+    /*flex:content-box;
+    justify-content: space-between;
+    margin: 0.1%;
+    }
+*/
+    
+body,html{
+  font-family: Arial, Helvetica, sans-serif;
+  height: 100%;
+  background-color: #f1f1f1;
+}
+
+.lable{
+  font-weight: bolder;
+  font-family:Berlin Sans FB;
+  font-size: 50px;
+}
+.parallax{
+  /* Full height */
+  height: 100%; 
+  /* Create the parallax scrolling effect */
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+@media only screen and (max-device-width: 1366px) {
+  .parallax {
+    background-attachment: scroll;
+  }
+}
+
+#res{
+  margin-left:15%;
+  
+}
+.img{
+  width:20%
+}
+.mis{
+  border-bottom: 1px solid ;
 }
 
 .menu {
@@ -38,7 +113,83 @@ body{
     flex:content-box;
     justify-content: space-between;
     margin: 0.1%;
+    width:30%;
+    height: 150%;
+    box-sizing: border-box;
+
+    }
+    /* button tuggle*/
+    .switch {
+      position: absolute;
+      display: inline-block;
+      width: 30px;
+      height: 17px;
+      left: 75%;
+      top: 10%;
+    }
+    
+    .switch input { 
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      -webkit-transition: .4s;
+      transition: .4s;
+    }
+    
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 13px;
+      width: 13px;
+      left: 2px;
+      bottom: 2px;
+      background-color: white;
+      -webkit-transition: .4s;
+      transition: .4s;
+    }
+    
+    input:checked + .slider {
+      background-color: #2196F3;
+    }
+    
+    input:focus + .slider {
+      box-shadow: 0 0 1px #2196F3;
+    }
+    
+    input:checked + .slider:before {
+      -webkit-transform: translateX(13px);
+      -ms-transform: translateX(13px);
+      transform: translateX(13px);
+    }
+    
+    /* Rounded sliders */
+    .slider.round {
+      border-radius: 34px;
+    }
+    
+    .slider.round:before {
+      border-radius: 50%;
     }
 
-    
-
+  @media screen and (max-width: 800px) {
+  *{
+    box-sizing: border-box;
+    width: 100%; /* The width is 100%, when the viewport is 800px or smaller */
+  }}
+#info{
+  font-size:80%;
+  text-align:center;
+}
+span{
+  background-color:yellow;
+}

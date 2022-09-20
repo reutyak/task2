@@ -10,18 +10,26 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script defer src="js/myJS.js"></script>
+    <script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+    <script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
     <link rel="stylesheet" href="css/myCss.css" />
   </head>
   <body>
-    <h1>Cryptonite</h1>
+    <div class="parallax">
+      <nav class="mis navbar navbar-light bg-light pt-7">
+      <h1 class="lable">Cryptonite</h1>
+      <img src="./images/cryptonite-crypto.jpg" class="img img-thumbnail float-right" alt="Responsive image">
+      </nav>
     <hr /><br>
-    <button id="home" class="menu" onclick="home()" >Home</button>
-    <button id="live" class="menu" onclick="live()" >Live</button> 
-    <button id="about" class="menu" onclick="about()">About</button>
-    <button id="search" class="search" onclick="search()">Search</button>
-    <input type="text" id="toSearch" class="search" placeholder="search"/> 
-    <br><br>
-    <hr />
-    <div id="res"></div>
+    <div class="container" >
+      <button id="home"  class="menu btn btn btn-outline-primary -sm" onclick="home()" >Home</button>
+      <button id="live" class="menu btn btn-outline-primary -sm" onclick="live()" >Live</button> 
+      <button id="about" class="menu btn btn-outline-primary -sm" onclick="about()">About</button>
+      <button id="search" type="button" class="search btn btn-outline-success" onclick="search()">Search</button>
+      <input type="text" id="toSearch" class="search mr-sm" placeholder="search"/> 
+  </div>
+    <br/><br/><br/>
+    <div id="res"></div><br>
+    <div id="chartContainer" style="height: 370px; width: 100%;"></div>
   </body>
 </html>
