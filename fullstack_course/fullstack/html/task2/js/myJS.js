@@ -1,37 +1,27 @@
-// const myURL = "https://api.coingecko.com/api/v3/coins/list"
 const myURL2 = "https://api.coingecko.com/api/v3/coins/"
-const myCoins = [];
-const dataTo = [];
-const toggleCoins = [];
+let myCoins = [];
+let dataTo = [];
+let toggleCoins = [];
+let myPoints = [];
+let interval = false;
+let thisDataTO = [];
+
 let singleData = {
   type: "spline",
+  xValueType: "dateTime",
   name: "",
   showInLegend: true,
-  xValueFormatString: "MMM YYYY",
-  yValueFormatString: "#,##0 Units",
-  dataPoints: [{x:5, y:8},{x:3, y:7}],
+  xValueFormatString: "hh:mm:ss TT",
+  yValueFormatString: "#,##0 ",
+  dataPoints: thisDataTO,
 }
-
-const addData = () => {
-  toggleCoins.map((item)=>{
-    let mySingleData = {...singleData};
-    mySingleData.name = item,
-    // console.log(mySingleData)
-    dataTo.push(mySingleData)
-  })
-  console.log(dataTo);
-};
-
-addData();
-
 
 $(()=>{
   $.ajax({
     url: myURL2,
     success: (response) => { 
       console.log(response);
-      // myCoins=response;
-      response.map((item)=>myCoins.push(item));
+      myCoins=response;
       console.log(myCoins),
       home();
       },
@@ -78,12 +68,13 @@ $(()=>{
     console.log(toggleCoins);
   }
 
-
   const home = ()=>{
-    toggleCoins.splice(0,toggleCoins.length);
+    dataTo = [];
+    (interval?clearInterval(interval):console.log("home"));
+    interval = false;
+    toggleCoins = [];
     $("#res").html("");
     myCoins.map((item)=>{
-    // let sym = item.symbol;
     let newInfo=moreInfo(item);
     $("#res").append(`<div class="card" >
           <label class="switch">
@@ -99,8 +90,6 @@ $(()=>{
           </div>`);
     })};
 
-  
-
   function hideShow(data){
     console.log(data.id);
     $(".card-info").closest(`div[id^=${data.id}]`).toggle();//go to the specific information div to show/hide
@@ -112,73 +101,48 @@ $(()=>{
     let myCoinsTo = myText.substring(0, myText.length - 1);
     myText = myCoinsTo
     return myText
-  };
+  };  
 
-  let myURL3 = `https://min-api.cryptocompare.com/data/pricemulti?fsyms=${myTitle()}&tsyms=USD`
-  console.log(myURL3);
-
-  const getLiveData = ()=>{
-    $.ajax({
-      url: myURL3,
-      success: (response) => { 
-        console.log(response);
-        let dataLive = response;
-        return dataLive
-    }, 
-      error: (error) => {
-        console.log(error);
+  const live2 = ()  => {
+    var options = {
+      exportEnabled: true,
+      animationEnabled: true,
+      title:{
+        text: myTitle() + " to USD"
       },
-    })
-  };
-
-  const createPoint = () => {
-    let liveData = getLiveData();
-    let myPoint = {...point};
-    toggleCoins.map((item)=>{
-      console.log(myPoint);
-    })
-  };
-
-  createPoint();
-
-  getLiveData();
-
-
-  const live = ()=>{
-
-      var options = {
-        exportEnabled: true,
-        animationEnabled: true,
-        title:{
-          text: myTitle() + " to USD"
-        },
-        subtitles: [{
-          text: "Click Legend to Hide or Unhide Data Series"
-        }],
-        axisX: {
-          title: ""
-        },
-        axisY: {
-          title: "Coin Value",
-          titleFontColor: "#4F81BC",
-          lineColor: "#4F81BC",
-          labelFontColor: "#4F81BC",
-          tickColor: "#4F81BC"
-        },
+      subtitles: [{
+        text: "Click Legend to Hide or Unhide Data Series"
+      }],
+      axisX: {
+        title: "timeline",
         
-        toolTip: {
-          shared: true
-        },
-        legend: {
-          cursor: "pointer",
-          itemclick: toggleDataSeries
-        },
-        data: dataTo
-        
-      };
-      $("#res").CanvasJSChart(options);
+      },
+      axisY: {
+        title: "Coin Value",
+        titleFontColor: "#4F81BC",
+        lineColor: "#4F81BC",
+        labelFontColor: "#4F81BC",
+        tickColor: "#4F81BC"
+      },
       
-      function toggleDataSeries(e) {
+      toolTip: {
+        shared: true,
+      },
+      legend: {
+        cursor: "pointer",
+        itemclick: toggleDataSeries
+      },
+      data: dataTo,
+      
+    };
+
+    getLiveData();
+
+    pushPoint(myPoints, dataTo);
+
+    $("#res").CanvasJSChart(options);
+
+    function toggleDataSeries(e) {
         if (typeof (e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
           e.dataSeries.visible = false;
         } else {
@@ -186,10 +150,66 @@ $(()=>{
         }
         e.chart.render();
       }
-      
-      }
+  };
 
-  ;
+  
+  const getLiveData = ()=>{
+    let myURL3 = `https://min-api.cryptocompare.com/data/pricemulti?fsyms=${myTitle()}&tsyms=USD`
+    $.ajax({
+      url: myURL3,
+      success: (response) => 
+      { 
+        myPoints = [];
+        toggleCoins.map((item)=>{
+        myPoints.push(createPoint(response, item));
+        });
+        console.log(myPoints);
+      },    
+      error: (error) => {
+        console.log(error);
+      },
+    })
+  };
+
+  const createPoint = (response, item) => {
+    var myPoint = {...point};
+    let time = new Date();
+    myPoint.x = time.getTime();
+    myPoint.y = response[item]["USD"];
+    return myPoint;
+  };
+
+  const pushPoint = (myPoints, dataTo)  => {
+    for (let i = 0; i < myPoints.length; i+=1) 
+    {if(dataTo[i]["dataPoints"].length > 0)
+      {
+        dataTo[i]["dataPoints"].push(myPoints[i]);
+      }else{
+        let thisDataTO = [];
+        dataTo[i]["dataPoints"] = thisDataTO;
+        dataTo[i]["dataPoints"].push(myPoints[i]);
+      }
+    }
+  };
+
+  const addData = () => {
+    toggleCoins.map((item)=>{
+      let mySingleData = {...singleData};
+      mySingleData.name = item,
+      dataTo.push(mySingleData)
+    })
+    console.log(dataTo);
+  };
+  
+
+  const live = ()=>{
+      console.log(toggleCoins);      
+      addData();
+      interval = true;
+      let myInterval = () => {setInterval(live2, 2000)};
+      myInterval();
+      // $("#res").CanvasJSChart(options);
+      };
 
   const about = ()=>{};
 
