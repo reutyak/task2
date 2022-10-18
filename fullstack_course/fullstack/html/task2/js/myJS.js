@@ -6,7 +6,8 @@ let myPoints = [];
 let interval = false;
 let thisDataTO = [];
 
-let singleData = {
+
+let singleData = {//data structure for single coin to the graph
   type: "spline",
   xValueType: "dateTime",
   name: "",
@@ -37,7 +38,7 @@ $(()=>{
     ils:0
   }
 
-  let point ={
+  let point ={//create a data structure to point object to the graph
     x: "",
     y: "" 
   }
@@ -59,10 +60,62 @@ $(()=>{
     //$(`#${data.id}`).append(`<div class="card-info"><img src=${myInfo.image}/><p> USD: ${myInfo.usd} EUR: ${myInfo.eur} ILS: ${myInfo.ils} </p></div>`);
   };
 
-  function addRemove(data){
+
+  const choice = ()  => {
+    $("#toChoice").html("");
+    myCoins.map((item)=>{
+      if(toggleCoins.includes(item.symbol.toUpperCase())){
+    $("#toChoice").append(`<div class="card">
+          <label class="switch">
+          <input type="checkbox" class="check" id=(${item.symbol.toUpperCase()}) onclick=addRemove(${item.id})>
+          <span class="slider round"></span>
+          </label>
+          <p>${item.symbol.toUpperCase()}</p>
+          <p>${item.name}</p><br>
+          </div>`)}});
+    $(".check").prop("checked", true);
+    $("#myModal").css("display","block");   
+  };
+
+  const save = () => {
+    if (toggleCoins.length <= 5)
+    {
+      $("#myModal").css("display","none");   
+      $(".check1").prop("checked", false);
+      myCoins.map((item)=>
+      {
+      if(toggleCoins.includes(item.symbol.toUpperCase()))
+      {
+        let index = myCoins.indexOf(item);
+        console.log(index);
+        $(".check1").eq(index).prop("checked", true);//go to the specific index to mark the checkbox
+
+      }
+      })
+    }else{
+      alert("The choice is limited to 5 coins only, mark the coin you want to remove");
+    }
+    };
+
+
+//   // When the user clicks on <span> (x), close the modal
+// $("#close").click(function() {
+//   $("#myModal").css("display","none");
+// })
+
+  function addRemove(data){//Create an array that contains the coins selected for live
     myCoins.map((item)=>{
       if(item.id == data.id){
-        toggleCoins.push(item.symbol.toUpperCase());
+        if (toggleCoins.includes(item.symbol.toUpperCase())){//if the array contains the coin then we have to remove it
+          const index = toggleCoins.indexOf(item.symbol.toUpperCase());
+          toggleCoins.splice(index, 1);}
+        else{
+          if(toggleCoins.length < 5){toggleCoins.push(item.symbol.toUpperCase());}
+          else{
+            toggleCoins.push(item.symbol.toUpperCase());
+            choice();
+          }
+        }
       }
     })
     console.log(toggleCoins);
@@ -70,7 +123,8 @@ $(()=>{
 
   const home = ()=>{
     dataTo = [];
-    (interval?clearInterval(interval):console.log("home"));
+    const stopInterval = () => clearInterval(myInter);
+    (interval?stopInterval():console.log("home"));
     interval = false;
     toggleCoins = [];
     $("#res").html("");
@@ -78,7 +132,7 @@ $(()=>{
     let newInfo=moreInfo(item);
     $("#res").append(`<div class="card" >
           <label class="switch">
-          <input type="checkbox" onclick=addRemove(${item.id})>
+          <input type="checkbox" class="check1" id=(${item.id}) onclick=addRemove(${item.id})>
           <span class="slider round"></span>
           </label>
           <div class="card-body">
@@ -95,7 +149,7 @@ $(()=>{
     $(".card-info").closest(`div[id^=${data.id}]`).toggle();//go to the specific information div to show/hide
   }
 
-  const myTitle = ()=>{
+  const myTitle = ()=>{//create title for the graph
     let myText = "";
     toggleCoins.map((item)=> myText += item + ",");
     let myCoinsTo = myText.substring(0, myText.length - 1);
@@ -153,7 +207,7 @@ $(()=>{
   };
 
   
-  const getLiveData = ()=>{
+  const getLiveData = ()=>{// get live data from API
     let myURL3 = `https://min-api.cryptocompare.com/data/pricemulti?fsyms=${myTitle()}&tsyms=USD`
     $.ajax({
       url: myURL3,
@@ -171,7 +225,7 @@ $(()=>{
     })
   };
 
-  const createPoint = (response, item) => {
+  const createPoint = (response, item) => {//create point from the live data.
     var myPoint = {...point};
     let time = new Date();
     myPoint.x = time.getTime();
@@ -179,7 +233,7 @@ $(()=>{
     return myPoint;
   };
 
-  const pushPoint = (myPoints, dataTo)  => {
+  const pushPoint = (myPoints, dataTo)  => {//add the new point to the graph
     for (let i = 0; i < myPoints.length; i+=1) 
     {if(dataTo[i]["dataPoints"].length > 0)
       {
@@ -192,7 +246,7 @@ $(()=>{
     }
   };
 
-  const addData = () => {
+  const addData = () => {//create object to all selected coins
     toggleCoins.map((item)=>{
       let mySingleData = {...singleData};
       mySingleData.name = item,
@@ -206,7 +260,8 @@ $(()=>{
       console.log(toggleCoins);      
       addData();
       interval = true;
-      let myInterval = () => {setInterval(live2, 2000)};
+      const myInterval = () => myInter = setInterval(live2, 2000);
+      // const stopInterval = () => clearInterval(myInter);
       myInterval();
       // $("#res").CanvasJSChart(options);
       };

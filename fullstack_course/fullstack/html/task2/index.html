@@ -29,6 +29,23 @@
       <input type="text" id="toSearch" class="search mr-sm" placeholder="search"/> 
   </div>
     <br/><br/><br/>
+    <div id="myModal" class="modal">
+
+      <!-- Modal content -->
+      <div class="modal-content">
+        <div class="modal-header">
+          <!-- <span id="close" class="close">&times;</span> -->
+          <h2 id="explained">The choice is limited to 5 coins only, mark the coin you want to remove </h2>
+        </div>
+        <div class="modal-body">
+          <p id="toChoice"></p>
+        </div>
+        <div class="modal-footer">
+          <button id="save" onclick="save()">save</button>
+        </div>
+      </div>
+    
+    </div>
     <div id="res"></div><br>
     <div id="chartContainer" style="height: 370px; width: 100%;"></div>
   </body>
