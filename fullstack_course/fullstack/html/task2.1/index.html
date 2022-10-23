@@ -15,20 +15,25 @@
     <link rel="stylesheet" href="css/myCss.css" />
   </head>
   <body>
+    <!-- <div class="spinner-border" role="status"></div> -->
+    
     <div class="parallax">
-      <nav class="mis navbar navbar-light navbar-default navbar-fixed-top pt-7 ">
+      <div class="mis navbar navbar-light navbar-default navbar-fixed-top pt-7 ">
       <h1 class="label navbar-text" style="color:darkgreen">Cryptonite</h1>
       <!-- <img src="./images/up-img.jpg"  id="img" class="img img-thumbnail float-right" alt="Responsive image"> -->
-      </nav>
-      <div class="container sticky"  >
-        <button id="home" class="menu btn btn btn-outline-success -sm" onclick="home()" >Home</button>
-        <button id="live" class="menu btn btn-outline-success -sm" onclick="live()" >Live</button> 
-        <button id="about" class="menu btn btn-outline-success -sm" onclick="about()">About</button>
-        <button id="search" type="button" class="search btn btn-outline-success"  onclick="search()">Search</button>
-        <input type="text" id="toSearch" class="search mr-sm" placeholder="search"/> 
-      </div>
+    </div>
+    <div class="container sticky"  >
+      <button id="home" class="menu btn btn btn-outline-success -sm" onclick="home()" >Home</button>
+      <button id="live" class="menu btn btn-outline-success -sm" onclick="live()" >Live</button> 
+      <button id="about" class="menu btn btn-outline-success -sm" onclick="about()">About</button>
+      <button id="search" type="button" class="search btn btn-outline-success"  onclick="search()">Search</button>
+      <input type="text" id="toSearch" class="search mr-sm" placeholder="search"/> 
+    </div>
   <br/><br/><br/>
-    <div id="res"></div><br>
+  <div class="container1"><div class="spinner-frame"><div class="spinner-cover"></div><div class="spinner-bar"></div></div></div>
+
+    <div id="res">
+    </div><br>
     <!-- <div id="more"></div> -->
     <div id="chartContainer" style="height: 370px; width: 100%;"></div>
     <div id="myModal" class="modal">

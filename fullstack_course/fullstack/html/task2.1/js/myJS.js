@@ -1,4 +1,4 @@
-$(".spinner-border").show();
+
 const myURL2 = "https://api.coingecko.com/api/v3/coins/"
 
 let aboutAll=[];
@@ -32,6 +32,7 @@ let singleData = {
 // });
 
 $(() => {
+  $(".container1").css("display", "block");
   getData();
 
 });
@@ -77,7 +78,7 @@ const getData = () => {
       console.log(response);
       myCoins = response;
       console.log(myCoins);
-      $(".spinner-border").remove();
+      $(".container1").css("display", "none");
       home();
     },
     error: (error) => {
@@ -122,12 +123,14 @@ const printCard = (item) => {
 };
 //A function to retrieve specific API information when the information request button is clicked
 const specificCoin = (coin) => {
+  $(".container1").css("display", "block");
   $.ajax({
     url: myURL2+coin,
     success: (response) => {
       console.log(response);
       let temp=response;
       returnCoin(temp);//build the field of coin's info and put it in the session storage
+      $(".container1").css("display", "none");
     },
     error: (error) => {
       console.log(error);
@@ -318,6 +321,7 @@ const getLiveData = ()=>{// get live data from API
       myPoints.push(createPoint(response, item));
       });
       console.log(myPoints);
+      $(".container1").css("display", "none");
     },    
     error: (error) => {
       console.log(error);
@@ -357,6 +361,7 @@ const addData = () => {//create object to all selected coins
 
 
 const live = ()=>{
+    $(".container1").css("display", "block");
     console.log(toggleCoins);      
     addData();
     interval = true;
@@ -443,4 +448,3 @@ const search = () => {
 
   }
   
- 
