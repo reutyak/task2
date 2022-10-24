@@ -224,10 +224,18 @@ const save = () => {
     alert("The choice is limited to 5 coins only, mark the coin you want to remove");
   }};
 
-const myTitle = ()=>{//create title for the graph
+const myTitle = ()=>{//create title for the API
   let myText = "";
-  toggleCoins.map((item)=> myText += item + ",");
+  toggleCoins.map((item)=> myText += (item + ","));
   let myCoinsTo = myText.substring(0, myText.length - 1);
+  myText = myCoinsTo
+  return myText
+};  
+
+const myTitle2 = ()=>{//create title for the graph
+  let myText = "";
+  toggleCoins.map((item)=> myText += (item + ", "));
+  let myCoinsTo = myText.substring(0, myText.length - 2);
   myText = myCoinsTo
   return myText
 };  
@@ -257,7 +265,7 @@ const live2 = ()  => {
     exportEnabled: true,
     animationEnabled: true,
     title:{
-      text: myTitle() + " to USD"
+      text: myTitle2() + " to USD"
     },
     subtitles: [{
       text: "Click Legend to Hide or Unhide Data Series"
@@ -323,8 +331,9 @@ const getLiveData = ()=>{
 //create point from the live data.
 const createPoint = (response, item) => {
   var myPoint = {...point};
-  let time = new Date();
-  myPoint.x = time.getTime();
+  var time = new Date();
+  myPoint.x = time;
+  console.log(myPoint.x)
   myPoint.y = response[item]["USD"];
   return myPoint;
 };
