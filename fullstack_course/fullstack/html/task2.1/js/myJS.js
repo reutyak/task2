@@ -191,8 +191,8 @@ const choice = ()  => {
   myCoins.map((item)=>{
     if(toggleCoins.includes(item.symbol.toUpperCase()))
     {
-      $("#toChoice").append(`<div class="card">
-        <label class="switch">
+      $("#toChoice").append(`<div class="card" id="card1">
+        <label class="switch1">
         <input type="checkbox" class="check" id=(${item.symbol.toUpperCase()}) 
         onclick='addRemove(${JSON.stringify(item)})'>
         <span class="slider round"></span>
@@ -332,7 +332,7 @@ const getLiveData = ()=>{
 const createPoint = (response, item) => {
   var myPoint = {...point};
   var time = new Date();
-  myPoint.x = time;
+  myPoint.x = time.getTime();
   console.log(myPoint.x)
   myPoint.y = response[item]["USD"];
   return myPoint;
@@ -353,6 +353,12 @@ const pushPoint = (myPoints, dataTo)  => {
 };
 
 const search = () => {
+  dataTo = [];
+  myPoints = [];
+  const stopInterval = () => clearInterval(myInter);
+  (interval?stopInterval():console.log("about"));
+  interval = false;
+  toggleCoins = [];
   let isValid = false;
   myCoins.map((item) => {
     if (
@@ -369,6 +375,7 @@ const search = () => {
 
 const about = ()=>{
   dataTo = [];
+  myPoints = [];
   const stopInterval = () => clearInterval(myInter);
   (interval?stopInterval():console.log("about"));
   interval = false;
