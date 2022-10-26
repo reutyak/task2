@@ -150,7 +150,7 @@ const specificCoin = (coin) => {
     myInfo.eur = temp.market_data.current_price.eur;
     myInfo.ils = temp.market_data.current_price.ils;
     console.log(myInfo);
-    sessionCoins.push(temp.id);//צריך בדיקה, לא ברור למה המערך נדרש
+    sessionCoins.push(temp.id);
     let time=new Date();
     myInfo.currentTime=Number(time.getTime());
     //We will push the object to sessionStorage with ID as keyword

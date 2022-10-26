@@ -98,7 +98,7 @@ h1{
   border-style: hidden;
 }
 
-.card, .card1{
+.card{
     position: relative;
     float: left;
     flex:content-box;
@@ -113,6 +113,22 @@ h1{
     padding-left: 20px;
     padding-right:30px; 
     }
+
+    #card1{
+      position: relative;
+      float: left;
+      flex:content-box;
+      justify-content: space-between; 
+      margin: 0.75em;
+      width:30%;
+      height: 150%;
+      box-sizing: border-box;
+      font-family:Candara Light;
+      font-size: 15px;
+      font-weight: 900;
+      padding-left: 20px;
+      padding-right:30px; 
+      }
     
     @media screen and (max-width: 700px) {
     #card1{
@@ -269,6 +285,17 @@ h1{
   grid-gap: 2%;
 }
 
+@media screen and (max-width: 800px){
+.grid{
+  display:inline-block;
+  width: 80%;
+  height: 80%;
+  grid-template-columns: repeat(4, 1fr);
+  margin-top:10%;
+  margin-left: 3.5%;
+  grid-gap: 2%;
+}}
+
 .aboutPage h1{
   color:white;
   font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
@@ -310,6 +337,7 @@ h1{
 
 #img{
   border-image: none;
+  
 }
 
 .sticky-top {
@@ -340,6 +368,7 @@ h1{
   position: fixed; /* Stay in place */
   z-index: 9; /* Sit on top */
   left: 15%;
+  right: 15%;
   top: 30%;
   width: 70%; 
   height: 70%; 
