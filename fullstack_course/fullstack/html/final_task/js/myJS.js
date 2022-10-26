@@ -74,9 +74,9 @@ const printCard = (item) => {
           <input type="checkbox" class="check1" onclick='addRemove(${JSON.stringify(item)})'/>
           <span class="slider round"></span>
           </label>
-          <div class="card-body">
-          <p>${item.symbol.toUpperCase()}</p>
-          <p>${item.name}</p><br>
+          <div class="card-body"
+          <p id="coin_img"><img src=${item.image.thumb}/>&nbsp<span id="coin_symb"> ${item.symbol.toUpperCase()}</span></p>
+          <p class="coin_name">${item.name}</p><br>
           <input type="button"  id="infoButton_${item.id}" value="More Info" class="btn btn-success btn_info" 
           onclick='moreInfo(${JSON.stringify(item)})'/></div><div/>
           <div class="allInfo" id=${item.id}></div>`);

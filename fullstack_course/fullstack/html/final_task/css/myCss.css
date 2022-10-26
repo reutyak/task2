@@ -491,3 +491,10 @@ h1{
 .modal-header h2{
   font-size:100%;
 }
+
+.coin_name{
+  padding-left:7.5%;
+}
+#coin_img img{
+  width:5%;
+}
